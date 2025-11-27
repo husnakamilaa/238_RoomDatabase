@@ -16,3 +16,23 @@ fun SiswaApp(navController: NavHostController = rememberNavController(), modifie
     HostNavigasi(navController = navController)
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun HostNavigasi(
+    navController: NavHostController,
+    modifier: Modifier = Modifier)
+{
+    NavHost(navController=navController, startDestination = DestinasiHome.route, modifier = Modifier)
+    {
+        composable(DestinasiHome.route){
+            HomeScreen(
+                navigateToItemEntry = {navController.navigate(route = DestinasiEntry.route)},
+            )
+        }
+        composable(DestinasiEntry.route){
+            EntrySiswaScreen(
+                EntrySiswaScreen(navigateBack = { navController.popBackStack() }),
+            )
+        }
+    }
+}
