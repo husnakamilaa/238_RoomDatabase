@@ -44,6 +44,7 @@ import com.example.roomdatabase.viewmodel.provider.PenyediaViewModel
 @Composable
 fun HomeScreen(
     navigateToItemEntry: () -> Unit,
+    navigateToItemDetail: (Int) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = viewModel(factory = PenyediaViewModel.factory)
 ){
@@ -72,6 +73,7 @@ fun HomeScreen(
         val uiStateSiswa by viewModel.homeUiState.collectAsState()
         BodyHome(
             itemSiswa = uiStateSiswa.listSiswa,
+            onSiswaClick = navigateToItemDetail,
             modifier = Modifier
                 .padding(innerPadding)
                 .fillMaxSize()
@@ -81,6 +83,7 @@ fun HomeScreen(
 @Composable
 fun BodyHome(
     itemSiswa: List<Siswa>,
+    onSiswaClick: (Int) -> Unit, //Int disesuaikan sama tipe data primary key
     modifier: Modifier = Modifier
 ){
     Column(
@@ -96,6 +99,7 @@ fun BodyHome(
         }
         else{
             ListSiswa(itemSiswa = itemSiswa,
+                onSiswaClick = {onSiswaClick(it.id)}, //ini id disesuaikan sama primary key nya kita
                 modifier = Modifier.padding(horizontal = dimensionResource(R.dimen.padding_small)))
         }
     }
